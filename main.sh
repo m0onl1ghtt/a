@@ -180,7 +180,6 @@ dependencies() {
             err "Invaild, exiting"
             return 1
             ;;
-        info "Done! Downloading toolchains..."
         mkdir -p "${HOME}/toolchains" "${KERNEL_ROOT}/out"
         if [ ! -d "${HOME}/toolchains/clang-r383902b" ]; then
     echo -e "\n[INFO] Cloning clang-r383902b...\n"
