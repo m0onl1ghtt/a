@@ -175,6 +175,7 @@ dependencies() {
             ncurses libx11 readline mesa libgl python-markdown libxml2 libxslt dos2unix kmod openssl elfutils dwarves \
             libarchive zstd rsync libyaml --noconfirm
             yay -S android-tools dtc jdk-openjdk dwarves
+            ;;
         *)
             err "Invaild, exiting"
             return 1
