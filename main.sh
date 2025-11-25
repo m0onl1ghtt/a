@@ -7,8 +7,9 @@ export DIRPATH
 export KERNEL_ROOT="$(pwd)"
 export ARCH=arm64
 export KBUILD_BUILD_USER="@nguyencaoantuong"
-
+"$KERNEL_ROOT"="$DIRPATH/ks"
 # Initial startup
+mkdir -p "${HOME}/toolchains" "${KERNEL_ROOT}/out"
 cd "$DIRPATH"
 
 # Check if user is running on an actual Linux environment
@@ -180,7 +181,7 @@ dependencies() {
             err "Invaild, exiting"
             return 1
             ;;
-        mkdir -p "${HOME}/toolchains" "${KERNEL_ROOT}/out"
+
         if [ ! -d "${HOME}/toolchains/clang-r383902b" ]; then
     echo -e "\n[INFO] Cloning clang-r383902b...\n"
     mkdir -p "${HOME}/toolchains/clang-r383902b" && cd "${HOME}/toolchains/clang-r383902b"
