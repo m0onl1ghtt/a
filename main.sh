@@ -273,7 +273,7 @@ select opt in 'Pull latest commit' 'Clone latest kernel source' 'Add KernelSU' '
 do
     case "$opt" in
         'Clone latest kernel source' )   helium ;;
-        'Pull latest commit' )   pull ::
+        'Pull latest commit' )   pull ;;
         'Add KernelSU' )   ksu ;;
         'Hook' )   hook ;;
         'Install dependencies' )   dependencies ;;
