@@ -11,7 +11,7 @@ export KBUILD_BUILD_USER="@nguyencaoantuong"
 # Initial startup
 mkdir -p "${HOME}/toolchains" "${KERNEL_ROOT}/out"
 cd "$DIRPATH"
-
+. common.sh
 COMMIT="$(git rev-parse --short HEAD)"
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
