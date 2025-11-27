@@ -208,7 +208,7 @@ export BUILD_OPTIONS=(
 "$KERNEL_ROOT"="$DIRPATH/ks"
     info "BUILD STARTED...!"
     echo "Use NO KernelSU defconfig as default! If u want to change, please kill script and change it."
-    cd "$KERNEL_ROOT"
+    cd "$DIRPATH/ks"
     make "${BUILD_OPTIONS[@]}" a32_noksu_defconfig
     echo "Executing the menu config..."
     make "${BUILD_OPTIONS[@]}" menuconfig
