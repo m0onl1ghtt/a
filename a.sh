@@ -51,9 +51,26 @@ if ! patch --version ; then
 fi
 
 helium() {
-    info "Cloning latest helium kernel source..."
-    git clone https://github.com/HeliumKA/helium ks
-    info "Done!"
+    echo "-------------------------------------------"
+    echo "Choose source."
+    echo "1) h* kernel"
+    echo "2) Moonlight kernel"
+    read -rp "Choose [1-2]: " choice
+
+    case "$choice" in
+        1)
+            git clone https://github.com/HeliumKA/helium ks
+            info Done
+            ;;
+        2)
+            git clone https://github.com/nguyencaoantuong/Moonlight-kernel ks
+            info Done
+            ;;
+        *)
+            err "Invaild, exiting"
+            return 1
+            ;;
+    esac
 }
 
 ksu() {
