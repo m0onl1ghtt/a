@@ -190,31 +190,30 @@ dependencies() {
 build() {
 cd "${KERNEL_ROOT}"
 
-export PATH="${HOME}/toolchains/clang-r383902b/bin:${PATH}"
-export LD_LIBRARY_PATH="${HOME}/toolchains/clang-r383902b/lib:${HOME}/toolchains/clang-r383902b/lib64:${LD_LIBRARY_PATH}"
+export CROSS_COMPILE=$HOME/zyc-clang/bin/aarch64-linux-gnu-
+export LD=$HOME/zyc-clang/bin/ld.lld
+export OBJCOPY=$HOME/zyc-clang/bin/llvm-objcopy
+export AS=$HOME/zyc-clang/bin/llvm-as
+export NM=$HOME/zyc-clang/bin/llvm-nm
+export STRIP=$HOME/zyc-clang/bin/llvm-strip
+export OBJDUMP=$HOME/zyc-clang/bin/llvm-objdump
+export READELF=$HOME/zyc-clang/bin/llvm-readelf
+export CC=$HOME/zyc-clang/bin/clang
+export CROSS_COMPILE_ARM32=$HOME/zyc-clang/bin/arm-linux-gnueabi-
+export ARCH=arm64
+export ANDROID_MAJOR_VERSION=r
 
-export BUILD_CROSS_COMPILE="${HOME}/toolchains/gcc/arm-gnu-toolchain-14.2.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-"
-export BUILD_CC="${HOME}/toolchains/clang-r383902b/bin/clang"
-
-export BUILD_OPTIONS=(
-    HOSTLDLIBS="-lyaml"
-    -C "${KERNEL_ROOT}"
-    O="${KERNEL_ROOT}/out"
-    -j"$(nproc)"
-    ARCH=arm64
-    CROSS_COMPILE="${BUILD_CROSS_COMPILE}"
-    CC="${BUILD_CC}"
-    CLANG_TRIPLE=aarch64-linux-gnu-
-)
+export KCFLAGS=' -w -pipe -O3'
+export KCPPFLAGS=' -O3'
+export CONFIG_SECTION_MISMATCH_WARN_ONLY=y
 
 "$KERNEL_ROOT"="$DIRPATH/ks"
     info "BUILD STARTED...!"
-    echo "Use NO KernelSU defconfig as default! If u want to change, please kill script and change it."
-    make "${BUILD_OPTIONS[@]}" a32_noksu_defconfig
-    echo "Executing the menu config..."
-    make "${BUILD_OPTIONS[@]}" menuconfig
-    echo "Build image started."
-    make "${BUILD_OPTIONS[@]}" Image || exit 1
+    echo "Use NO KernelSU defconfig as default! If u want to change, please kill script (Ctrl + C/Z) and change it."
+    make -C $(pwd) O=$(pwd)/out KCFLAGS=' -w -pipe -O3' CONFIG_SECTION_MISMATCH_WARN_ONLY=y clean -j$(nproc) && make -C $(pwd) O=$(pwd)/out KCFLAGS='-w -O3' CONFIG_SECTION_MISMATCH_WARN_ONLY=y mrproper -j$(nproc)
+    clear
+    make -C $(pwd) O=$(pwd)/out KCFLAGS=' -w -pipe -O3' CONFIG_SECTION_MISMATCH_WARN_ONLY=y -j$(nproc) a32_noksu_defconfig
+    make -C $(pwd) O=$(pwd)/out KCFLAGS=' -w -pipe -O3' CONFIG_SECTION_MISMATCH_WARN_ONLY=y -j$(nproc)
 
     cp "${KERNEL_ROOT}/out/arch/arm64/boot/Image" "${KERNEL_ROOT}/build"
 
@@ -224,24 +223,10 @@ clear
 }
 
 tc() {
-    echo -e "\n[INFO] Cloning clang-r383902b...\n"
-    mkdir -p "${HOME}/toolchains/clang-r383902b" && cd "${HOME}/toolchains/clang-r383902b"
-    curl -LO "https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/0e9e7035bf8ad42437c6156e5950eab13655b26c/clang-r383902b.tar.gz"
-    tar -xf clang-r383902b.tar.gz && rm clang-r383902b.tar.gz
+    info "Cloning zyc-clang version 14..."
+    cd $HOME
+    git clone https://github.com/EmanuelCN/zyc_clang-14 zyc-clang
     cd "$DIRPATH"
-    
-    echo -e "\n[INFO] Cloning ARM GNU Toolchain\n"
-    mkdir -p "${HOME}/toolchains/gcc" && cd "${HOME}/toolchains/gcc"
-    curl -LO "https://developer.arm.com/-/media/Files/downloads/gnu/14.2.rel1/binrel/arm-gnu-toolchain-14.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz"
-    tar -xf arm-gnu-toolchain-14.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
-    cd "$DIRPATH"
-
-    export PATH="${HOME}/toolchains/clang-r383902b/bin:${PATH}"
-    export LD_LIBRARY_PATH="${HOME}/toolchains/clang-r383902b/lib:${HOME}/toolchains/clang-r383902b/lib64:${LD_LIBRARY_PATH}"
-
-    export BUILD_CROSS_COMPILE="${HOME}/toolchains/gcc/arm-gnu-toolchain-14.2.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-"
-    export BUILD_CC="${HOME}/toolchains/clang-r383902b/bin/clang"
-
 }
 
 pull() {
