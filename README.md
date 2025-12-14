@@ -12,5 +12,4 @@ bash a.sh
 ```
 
 ### Upcoming features:
-- Add SusFS version 2.0
-- ...
+- a
