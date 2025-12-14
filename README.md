@@ -1,5 +1,3 @@
-![image](https://raw.githubusercontent.com/HeliumKA/.github/refs/heads/main/banner_kb.png)
-<div align="center" markdown="1">
 
 ## a
 
