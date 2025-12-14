@@ -6,7 +6,7 @@ DIRPATH=$(dirname "$FILEPATH")
 export DIRPATH
 export KERNEL_ROOT="$(pwd)"
 export ARCH=arm64
-export KBUILD_BUILD_USER="@nguyencaoantuong"
+export KBUILD_BUILD_USER="@a"
 "$KERNEL_ROOT"="$DIRPATH/ks"
 # Initial startup
 mkdir -p "${HOME}/toolchains" "${KERNEL_ROOT}/out"
