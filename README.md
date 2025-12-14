@@ -13,7 +13,7 @@
   
 ### How to run:
 ```
-git clone https://github.com/m0onl1ghtt/Moonlight-builder a
+git clone https://github.com/m0onl1ghtt/a
 cd a
 bash a.sh
 ```
