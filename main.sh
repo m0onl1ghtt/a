@@ -250,9 +250,9 @@ git pull origin main
 
 clear
 # Banner
-$FIGLET "helium"
+$FIGLET "a"
 echo -------------------------------------------------------------
-echo "A script for build helium kernel"
+echo "A script for build kernel"
 echo ------------------------------------------------------------
 echo "Current commit : $COMMIT ($BRANCH)"
 echo "Base this script from: https://git.disroot.org/mbcp/mbbpatch.git"
